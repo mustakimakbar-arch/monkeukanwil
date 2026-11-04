@@ -44,3 +44,5 @@ dialog form{display:grid;gap:8px}dialog label{display:grid;gap:2px;font-size:12p
 #nt{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pr);color:#fff;padding:9px 16px;border-radius:10px;z-index:20;display:none}
 #lf{display:grid;gap:10px;text-align:left}#lf label{display:grid;gap:2px;font-size:12px;color:var(--mu)}
 @media print{header,.fl,.tabs,.tools,#adm,#tR,#nt,#lg{display:none!important}body{background:#fff;color:#000}.card{break-inside:avoid;border-color:#ccc}.tw{overflow:visible}}
+
+[hidden]{display:none!important}
