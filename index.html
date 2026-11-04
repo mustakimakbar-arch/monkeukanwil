@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SIMONKEU – Realisasi Keuangan Kanwil BPN Sulawesi Selatan</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Manrope:wght@600;800&display=swap">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head><body>
+<div id="lg"><div class="card" style="max-width:380px;width:100%;display:grid;gap:10px"><h1 style="text-align:center">SIMONKEU</h1><div style="text-align:center">Monitoring realisasi keuangan<br>Kanwil BPN Provinsi Sulawesi Selatan</div>
+<form id="lf"><label>Nama pengguna<input type="text" id="lu" autocomplete="username" required></label><label>Kata sandi<input type="password" id="lp" autocomplete="current-password" required></label><button class="btn">Masuk</button></form><div id="msg"></div>
+<div class="mu" style="text-align:center">Tamu hanya dapat melihat. Admin dapat mengunggah dan menyunting data.</div></div></div>
+<header><h1>Dashboard realisasi keuangan<small>Kanwil BPN Provinsi Sulawesi Selatan</small></h1><span class="chip" id="rl"></span><button class="btn g" id="bX">Keluar</button></header>
+<main>
+<nav class="tabs"><button class="btn on" data-t="tD">Dashboard</button><button class="btn ao" data-t="tR" hidden>Data baris</button><button class="btn ao" data-t="adm" hidden>Admin</button></nav>
+<div id="tD">
+<section class="fl card" aria-label="Filter">
+<label>Satker<select id="fS"></select></label><label>Jenis belanja<select id="fJ"><option value="">Semua</option><option value="0">Pegawai</option><option value="1">Barang</option><option value="2">Modal</option></select></label>
+<label>Sumber dana<select id="fD"><option value="">Semua</option><option value="0">RM</option><option value="1">PNBP</option><option value="2">PHLN</option></select></label>
+<label>Prioritas / kategori<select id="fP"><option value="">Semua</option><option value="0">PN</option><option value="1">Non PN</option><option value="2">Layanan</option></select></label>
+<label>Urutan 5 satker<select id="fO"><option value="p">Capaian serapan (%)</option><option value="r">Nilai realisasi (Rp)</option></select></label></section>
+<div class="tools"><button class="btn g" id="bE">Unduh Excel</button><button class="btn g" id="bP">Cetak / simpan PDF</button></div>
+<div class="kp" id="kp"></div>
+<div class="g2"><section class="card"><h2>5 satker realisasi tertinggi</h2><div id="top"></div></section><section class="card"><h2>5 satker realisasi terendah</h2><div id="low"></div></section></div>
+<div class="g3"><section class="card"><h3>Realisasi menurut prioritas</h3><canvas id="c1"></canvas></section><section class="card"><h3>Realisasi menurut jenis belanja</h3><canvas id="c2"></canvas></section><section class="card"><h3>Realisasi menurut sumber dana</h3><canvas id="c3"></canvas></section></div>
+<section class="card" style="margin-bottom:14px"><h2>Ringkasan eksekutif: satker › seksi › uraian RO</h2><div class="tw"><div class="tb" id="tr"></div></div></section>
+<p class="mu" id="ft"></p></div>
+<section class="card" id="tR" hidden><h2>Data baris realisasi</h2>
+<div class="fl"><label>Satker<select id="rS"></select></label><label>Cari akun / RO / uraian<input type="search" id="rQ"></label><label>&nbsp;<button class="btn" id="bN">Tambah baris</button></label></div>
+<div class="tw"><table><thead><tr><th>Satker</th><th>Akun</th><th>RO</th><th>SD</th><th class="n">Pagu</th><th class="n">Realisasi</th><th></th></tr></thead><tbody id="rT"></tbody></table></div>
+<p><button class="btn g" id="rPv">Sebelumnya</button> <button class="btn g" id="rNx">Berikutnya</button> <span class="mu" id="rI"></span></p></section>
+<section class="card" id="adm" hidden><h2>Panel admin</h2>
+<p><b>1. Impor master</b> – berkas database_sulsel.xlsx (satker, RO, prioritas, seksi). Lakukan sekali, atau saat ada RO baru.</p><input type="file" id="fm" accept=".xlsx"> <span id="ms" class="mu"></span>
+<p><b>2. Impor realisasi</b> – berkas “Realisasi FA berdasarkan SP2D” (.xlsx). Seluruh baris lama diganti.</p><input type="file" id="fu" accept=".xlsx,.xls"> <span id="us" class="mu"></span>
+<p><b>3. Blokir pagu per satker</b> (Rp) – berkas SP2D tidak memuat blokir, jadi diisi manual.</p><div class="bk" id="bk"></div><p><button class="btn" id="sb">Simpan blokir</button></p>
+<p><b>4. Ubah kata sandi saya</b></p><div class="fl"><label>Sandi lama<input type="password" id="pl" autocomplete="current-password"></label><label>Sandi baru (min. 10 karakter, huruf + angka)<input type="password" id="pb" autocomplete="new-password"></label><label>&nbsp;<button class="btn" id="sp">Ubah sandi</button></label></div></section>
+<dialog id="dg"><form id="ef" method="dialog"><h2 id="eT"></h2><label>Satker<select id="eS"></select></label><label>Kode akun (6 digit)<input type="text" id="eA" required></label><label>Kode RO (contoh 5527.EBA.994)<input type="text" id="eR" required></label><label>Sumber dana (huruf: A=RM, D=PNBP, B=PLN)<input type="text" id="eD" maxlength="1" required></label><label>Pagu (Rp)<input type="number" id="eP" min="0" step="1" required></label><label>Realisasi (Rp)<input type="number" id="eL" min="0" step="1" required></label>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn">Simpan</button><button type="button" class="btn g" id="eC">Batal</button><button type="button" class="btn g" id="eDel" style="color:var(--bd)">Hapus</button></div></form></dialog>
+</main><div id="nt" role="status"></div>
+<script src="js/config.js"></script><script src="js/app.js"></script></body></html>
