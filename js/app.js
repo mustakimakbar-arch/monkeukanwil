@@ -2,7 +2,7 @@ const PR=['PN','Non PN','Layanan'],JB=['Pegawai','Barang','Modal'],SD=['RM','PNB
 const rp=n=>Math.abs(n)>=1e9?(n/1e9).toLocaleString('id-ID',{maximumFractionDigits:2})+' M':(n/1e6).toLocaleString('id-ID',{maximumFractionDigits:1})+' jt';
 const pc=(a,b)=>b>0?a/b*100:0,pf=v=>v.toLocaleString('id-ID',{maximumFractionDigits:1})+'%',cl=v=>v>=80?'hi':v>=60?'md':'lw';
 const $=i=>document.getElementById(i),cfg=window.APP_CONFIG||{};
-let tok=localStorage.getItem('sk_tok')||'',role='',M=null,S={},B={},pg=1,ed=null;
+let tok=localStorage.getItem('sk_tok')||'',role='',M=null,S={},B={},pg=1,ed=null,ch={};
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const nt=(m,e)=>{const n=$('nt');n.textContent=m;n.style.background=e?'#d64545':'';n.style.display='block';setTimeout(()=>n.style.display='none',3500)};
 async function api(action,data){
